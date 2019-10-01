@@ -6,6 +6,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { SharedModule } from "../shared/shared.module";
 import { FormsModule } from "@angular/forms";
 import { ChartsModule } from 'ng2-charts';
+import { AutofocusModule } from 'angular-autofocus-fix';
 
 //Components
 import { PagesComponent } from './pages.component';
@@ -24,7 +25,8 @@ import { GraficasComponent } from '../helpers/graficas/graficas.component';
     PagesRoutingModule,
     SharedModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    AutofocusModule
   ]
 })
 export class PagesModule { }

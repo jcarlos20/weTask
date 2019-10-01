@@ -15,7 +15,7 @@
 
         <ng-template #editingTask>
             <input type="text" class="task-item-edit" [(ngModel)]='task.title' (keyup.enter)="doneEdit(task)"
-                (keyup.esc)='cancelEditing(task)' autofocus>
+                (keyup.esc)='cancelEditing(task)' (blur)="doneEdit(task)" autofocus>
         </ng-template>
 
     </div>
