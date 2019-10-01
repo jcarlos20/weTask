@@ -1,0 +1,40 @@
+<input *ngIf="!checkOptionButton(); else showGeneral" type="text" class="task-input" placeholder="New task"
+    [(ngModel)]='taskTitle' (keyup.enter)='addTask()'>
+<ng-template #showGeneral>
+    <h3 *ngIf="this.user" style="text-align: center;">{{this.user.displayName}}'tasks</h3>
+</ng-template>
+
+
+<div class="task-item" *ngFor='let task of tasks'>
+    <div class="task-item-left">
+        <input type="checkbox" [(ngModel)]='task.completed' (click)='completeTask(task)'
+            [disabled]="checkOptionButton()">
+        <div *ngIf="!task.editing; else editingTask" class="task-item-label" [ngClass]="{'completed' : task.completed}"
+            (dblclick)="editTask(task)">{{task.title}}
+        </div>
+
+        <ng-template #editingTask>
+            <input type="text" class="task-item-edit" [(ngModel)]='task.title' (keyup.enter)="doneEdit(task)"
+                (keyup.esc)='cancelEditing(task)' autofocus>
+        </ng-template>
+
+    </div>
+    <div class="remove-item" (click)='deleteTask(task.id)'>
+        &times;
+    </div>
+</div>
+
+<div class="extra-container">
+    <div style="float: right;">
+        <button mat-raised-button color="accent" (click)="clearCompleted()">Clear completed</button>
+    </div>
+</div>
+
+<div>
+    <app-graficas
+    [barChartData]="[{ data: [this.completed], label: 'Completed' },{ data: [this.uncompleted], label: 'Uncompleted' }]"
+    [barChartLabels]="['Tasks']"
+    barChartType = "bar">
+
+    </app-graficas>
+</div>

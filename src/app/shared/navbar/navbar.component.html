@@ -1,0 +1,32 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav-content>
+        <!-- TOP TOOLBAR-->
+        <mat-toolbar>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button>
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span class="logo" routerLink="/">📝 weTask</span>
+
+            <span class="fill-space"></span>
+
+            <div *ngIf="afAuth.user | async as user; else showLogin">
+                <a mat-button (click)="logout()"><img class="avatar" [src]="user.photoURL || '/assets/default-user.svg'">Logout</a>
+            </div>
+
+            <ng-template #showLogin>
+                <a mat-button (click)="login()"> <img src="/assets/google-logo.svg" width="20" height="20" />SignIn</a>
+            </ng-template>
+
+            <!-- DROPDOWN MENU -->
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <a mat-menu-item href="https://github.com/jcarlos20/weTask.git">
+                    <i>💾</i>
+                    <span>Code on Github</span>
+                </a>
+            </mat-menu>
+        </mat-toolbar>
+    </mat-sidenav-content>
+</mat-sidenav-container>

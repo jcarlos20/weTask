@@ -1,0 +1,41 @@
+<div class="wrapper" *ngIf="afAuth.user | async as user; else showGeneral">
+    <div class="hello">
+        <h1 [routerLink]="['/home', user.uid]" style="cursor: pointer;">My tasks!</h1>
+        <p>or explore more task</p>
+        <div class="angularTable">
+            <mat-table [dataSource]="users" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="photoURL">
+                    <mat-header-cell *matHeaderCellDef> Photo </mat-header-cell>
+                    <mat-cell *matCellDef="let user"> <img class="avatar" [src]="user.photoURL || '/assets/default-user.svg'"> </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="displayName">
+                    <mat-header-cell *matHeaderCellDef> All Users </mat-header-cell>
+                    <mat-cell *matCellDef="let user" [routerLink]="['/home', user.id]"> {{user.displayName}}</mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+    </div>
+    <div class="task">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<ng-template #showGeneral>
+    <div class="wrapper">
+        <div class="image">
+            <img src="../../../assets/monstruo.png" class="monstruo" />
+        </div>
+        <div class="welcome">
+            <h3 style="font-family: 'Trebuchet MS', Helvetica, sans-serif;">Welcome guest!</h3>
+        </div>
+        <div class="task">
+            <input type="text" class="todo-input" placeholder="Add new task" (keyup.enter)="authError()"
+                style="margin-top: 30%;">
+        </div>
+    </div>
+</ng-template>
